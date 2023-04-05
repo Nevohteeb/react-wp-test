@@ -6,28 +6,28 @@ import PlaceholderImage from "../assets/placeholder-no-image.png"
 const baseUrl = import.meta.env.VITE_WP_API_BASEURL;
 console.log(baseUrl);
 
-const RenderedPost = () => {
+const RenderedDinosaur = () => {
   const { id } = useParams();
   
-  const endpoint = `${baseUrl}/posts/${id}?_embed`
+  const endpoint = `${baseUrl}/dinosaurs/${id}?_embed`
 
   console.log(endpoint);
 
-  const { data : post, error, loading } = useAxios({
+  const { data : dinosaur, error, loading } = useAxios({
       url: endpoint
   })
 
   // Check State of dinosaur
   if (loading) return "Loading...";
-  if (!post) return "No data...";
-  if (post.length === 0) return "No results found!";
+  if (!dinosaur) return "No data...";
+  if (dinosaur.length === 0) return "No results found!";
   if (error) return "Error!";
-  console.log(post)
+  console.log(dinosaur)
 
   const GetImageorPlaceholder = () => {
-      if (post._embedded['wp:featuredmedia']) {
+      if (dinosaur._embedded['wp:featuredmedia']) {
           return (
-            <img src={post._embedded['wp:featuredmedia']['0'].source_url} alt={post.title.rendered}/>
+            <img src={dinosaur._embedded['wp:featuredmedia']['0'].source_url} alt={dinosaur.title.rendered}/>
             )
       } else {
           return (
@@ -38,20 +38,20 @@ const RenderedPost = () => {
 
   return (
       <div>
-        <h2>{post.title.rendered}</h2>
+        <h2>{dinosaur.title.rendered}</h2>
         <GetImageorPlaceholder />
-        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+        <div dangerouslySetInnerHTML={{ __html: dinosaur.content.rendered }} />
       </div>
     );
   
 }
 
-const Post = () => {
+const Dinosaur = () => {
     return (
         <div className='container'>
-            <RenderedPost />
+            <RenderedDinosaur />
         </div>
     )
 }
 
-export default Post;
+export default Dinosaur;
