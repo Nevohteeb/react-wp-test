@@ -1,57 +1,44 @@
-import React from 'react';
-import { useAxios } from "use-axios-client";
+import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import PlaceholderImage from "../assets/placeholder-no-image.png"
 
 const baseUrl = import.meta.env.VITE_WP_API_BASEURL;
 console.log(baseUrl);
 
-const RenderedPost = () => {
+const Post = () => {
+  const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
   const { id } = useParams();
   
   const endpoint = `${baseUrl}/posts/${id}?_embed`
-
-  console.log(endpoint);
-
-  const { data : post, error, loading } = useAxios({
-      url: endpoint
-  })
-
-  // Check State of dinosaur
-  if (loading) return "Loading...";
-  if (!post) return "No data...";
-  if (post.length === 0) return "No results found!";
-  if (error) return "Error!";
-  console.log(post)
-
-  const GetImageorPlaceholder = () => {
-      if (post._embedded['wp:featuredmedia']) {
-          return (
-            <img src={post._embedded['wp:featuredmedia']['0'].source_url} alt={post.title.rendered}/>
-            )
-      } else {
-          return (
-            <img src={PlaceholderImage} alt="placeholder" />
-          )
-      }
-  }
-
-  return (
-      <div>
-        <h2>{post.title.rendered}</h2>
-        <GetImageorPlaceholder />
-        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-      </div>
-    );
   
-}
+  useEffect(() => {
+    axios.get(`${endpoint}`)
+    .then((res) => {
+      console.log(res)
+      setPost(res.data)
+      setLoading(false)
+    })
+    .catch((err) => console.log(err))
+  }, [id])
 
-const Post = () => {
-    return (
-        <div className='container'>
-            <RenderedPost />
-        </div>
-    )
+  console.log(post);
+
+  if (loading) {
+    return <>Loading...</>
+  }
+  
+  return (
+   <div className='container'>
+      <h2>Single Post:</h2>
+      <div key={post.slug} className="post-container">
+          <h4 className="title">{post.title.rendered}</h4>
+          <div dangerouslySetInnerHTML={{ __html: post.content.rednered }} />
+          <div>Key: {post.slug}</div>
+      </div>
+    </div>
+ );
 }
 
 export default Post;

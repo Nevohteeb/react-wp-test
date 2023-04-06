@@ -12,9 +12,11 @@ const MobileMenu = ({ closeMethod }) => {
                     <Link to="/" onClick={closeMethod}>Home</Link>
                 </li>
                 <li>
+                    <Link to="/dinosaurs" onClick={closeMethod}>Dinosaurs</Link>
+                </li>
+                <li>
                     <Link to="/about" onClick={closeMethod}>About</Link>
                 </li>
-                
                 <li>
                     <Link to="/contact" onClick={closeMethod}>Contact</Link>
                 </li>
