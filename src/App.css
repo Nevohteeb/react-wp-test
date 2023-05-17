@@ -212,6 +212,10 @@ textarea {
     margin-bottom: 10px;
   }
 
+  .product-Image {
+    height: 200px;
+  }
+
 /* Media queries */
 @media screen and (min-width: 780px) {
   h1 {

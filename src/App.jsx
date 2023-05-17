@@ -8,8 +8,6 @@ import Links from './Links'
 
 
 function App() {
-  const url =  import.meta.env.VITE_WP_API_BASEURL;
-  console.log(url);
   return (
     <HashRouter>
       <Header/>

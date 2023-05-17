@@ -28,6 +28,8 @@ const Dinosaur = () => {
   if (loading) {
     return <>Loading...</>
   }
+
+  
   
   return (
    <div className='container'>

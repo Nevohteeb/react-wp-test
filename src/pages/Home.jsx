@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PlaceholderImage from "../assets/placeholder-no-image.png"
 import axios from "axios"
 
 const baseUrl = import.meta.env.VITE_WP_API_BASEURL;

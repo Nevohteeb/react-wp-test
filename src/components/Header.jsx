@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import MobileMenu from './MobileMenu'
 import {Link} from "react-router-dom"
-import { List} from 'react-bootstrap-icons';
+import { List, CartFill} from 'react-bootstrap-icons';
 
 const Header = () => {
   // declare on and off state for navbar
@@ -32,6 +32,14 @@ const Header = () => {
           </li>
           <li>
             <Link to="/contact">Contact</Link>
+          </li>
+          <li>
+            <Link to="/shop">Shop</Link>
+          </li>
+          <li>
+            <Link to={`/cart`}>
+              <CartFill /> Cart
+            </Link>
           </li>
         </ul>
 
